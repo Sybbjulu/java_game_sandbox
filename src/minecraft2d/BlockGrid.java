@@ -16,8 +16,8 @@ public class BlockGrid {
 		}
 	}
 	
-	public void setAt(int x, int y, BlockType b) {
-		blocks[x][y] = new Block(b, x * BLOCK_SIZE, y * BLOCK_SIZE);
+	public void setAt(int x, int y, BlockType type) {
+		blocks[x][y] = new Block(type, x * BLOCK_SIZE, y * BLOCK_SIZE);
 	}
 	
 	public Block getAt(int x, int y) {
