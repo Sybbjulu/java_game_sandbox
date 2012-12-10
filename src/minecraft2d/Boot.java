@@ -7,7 +7,6 @@ import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
@@ -28,18 +27,21 @@ public class Boot {
 	private boolean isRunning = true;
 	
 	// block sandbox
-	BlockGrid grid;
+	BlockGrid grid = null;
 	
 	public static void main(String[] args) {
-		Boot b = new Boot();
+		Boot boot = new Boot();
+		boot.run();
 	}
 	
 	public Boot() {
 		initDisplay();
 		initOpenGL();
 		initEntities();
-		initTimer();
-		
+		initTimer();		
+	}
+	
+	private void run() {
 		while (isRunning) {
 			render();
 			logic(getDelta());
@@ -50,7 +52,7 @@ public class Boot {
 			if (Display.isCloseRequested()) { isRunning = false; }
 		}
 		
-		Display.destroy();
+		Display.destroy();		
 	}
 	
 	private void initDisplay() {
@@ -66,8 +68,7 @@ public class Boot {
 	}
 	
 	private void initEntities() {		
-		grid = new BlockGrid();
-		grid.setAt(10, 10, BlockType.STONE);
+		grid = new BlockGrid();		
 	}
 		
 	private void initTimer() {
@@ -90,11 +91,12 @@ public class Boot {
 		
 		// get block clicked on
 		if (mouseClicked) {
-			int grid_x = Math.round(mousex / World.BLOCKS_WIDTH);
-			int grid_y = Math.round(mousey / World.BLOCKS_HEIGHT);
+			int grid_x = Math.round(mousex / World.BLOCK_SIZE);
+			int grid_y = Math.round(mousey / World.BLOCK_SIZE);
 			
 			// debug
 			System.out.println("[LEFT_CLICK] " + grid_x + ", " + grid_y);
+			grid.setAt(grid_x, grid_y, BlockType.STONE);
 		}
 		
 	}
