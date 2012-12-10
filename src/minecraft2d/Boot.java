@@ -10,6 +10,7 @@ import static org.lwjgl.opengl.GL11.glOrtho;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -59,6 +60,8 @@ public class Boot {
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
+			Display.destroy();
+			System.exit(1);
 		}
 	}
 	
@@ -80,7 +83,20 @@ public class Boot {
 	}
 	
 	private void input() {		
+		
+		int mousex = Mouse.getX();
+		int mousey = HEIGHT - Mouse.getY() - 1;
+		boolean mouseClicked = Mouse.isButtonDown(0);
+		
+		// get block clicked on
+		if (mouseClicked) {
+			int grid_x = Math.round(mousex / World.BLOCKS_WIDTH);
+			int grid_y = Math.round(mousey / World.BLOCKS_HEIGHT);
 			
+			// debug
+			System.out.println("[LEFT_CLICK] " + grid_x + ", " + grid_y);
+		}
+		
 	}
 	
 	private static long getTime() {
