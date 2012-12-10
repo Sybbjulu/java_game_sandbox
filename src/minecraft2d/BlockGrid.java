@@ -2,6 +2,8 @@ package minecraft2d;
 
 import static minecraft2d.World.*;
 
+import java.io.File;
+
 public class BlockGrid {
 
 	private Block[][] blocks = new Block[BLOCKS_WIDTH][BLOCKS_HEIGHT];
@@ -14,6 +16,10 @@ public class BlockGrid {
 				blocks[x][y] = new Block(BlockType.AIR, x * BLOCK_SIZE, y * BLOCK_SIZE);
 			}
 		}
+	}
+	
+	public BlockGrid(File loadFile) {
+		
 	}
 	
 	public void setAt(int x, int y, BlockType type) {
@@ -30,6 +36,10 @@ public class BlockGrid {
 				blocks[x][y].draw();
 			}
 		}
+	}
+	
+	public void save(File saveFile) {
+		
 	}
 	
 }
