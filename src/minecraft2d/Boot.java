@@ -18,13 +18,16 @@ public class Boot {
 	// window attributes
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
-	private static final String TITLE = "MINECRAFT2D";
+	private static final String TITLE = "MINECRAFT-2D";
 	
 	// timing 
 	private static final int FPS = 60;
 	private long lastFrame;
 		
 	private boolean isRunning = true;
+	
+	// block sandbox
+	BlockGrid grid;
 	
 	public static void main(String[] args) {
 		Boot b = new Boot();
@@ -60,7 +63,8 @@ public class Boot {
 	}
 	
 	private void initEntities() {		
-			
+		grid = new BlockGrid();
+		grid.setAt(10, 10, BlockType.STONE);
 	}
 		
 	private void initTimer() {
@@ -68,7 +72,7 @@ public class Boot {
 	}
 		
 	private void render() {		
-			
+		grid.draw();
 	}
 		
 	private void logic(int delta) {		
