@@ -99,6 +99,8 @@ public class Boot {
 			grid.setAt(grid_x, grid_y, BlockType.STONE);
 		}
 		
+		
+		
 	}
 	
 	private static long getTime() {
