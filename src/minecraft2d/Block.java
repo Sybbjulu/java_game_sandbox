@@ -1,21 +1,54 @@
 package minecraft2d;
 
 import static minecraft2d.World.*;
+import static org.lwjgl.opengl.GL11.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 
 public class Block {
 	
 	private BlockType type = BlockType.AIR;
-	private float x, y;	
+	private float x, y;
+	private Texture texture = null;
 	
 	public Block(BlockType type, float x, float y) {
 		super();
 		this.type = type;
 		this.x = x;
 		this.y = y;
+		try {
+			this.texture = TextureLoader.getTexture("PNG", new FileInputStream(new File(type.location)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}
 	}
 	
 	public void draw() {
-		
+		texture.bind();
+		glLoadIdentity();
+		glTranslated(x, y, 0);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);
+			glVertex2f(0, 0);
+			
+			glTexCoord2f(1, 0);
+			glVertex2f(BLOCK_SIZE, 0);
+			
+			glTexCoord2f(1, 1);
+			glVertex2f(BLOCK_SIZE, BLOCK_SIZE);
+			
+			glTexCoord2f(0, 1);
+			glVertex2f(0, BLOCK_SIZE);			
+		glEnd();
+		glLoadIdentity();
 	}
 
 	public BlockType getType() {
